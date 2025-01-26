@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <title>Service Estimator</title>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script defer src="script.js"></script>
+
+</head>
+
+
+
+<body>
+
+    <div class="overlay" id="zipPopup">
+
+        <div class="popup">
+
+            <h2>Set Your Location</h2>
+
+            <p>Enter your state for service cost in your area.</p>
+
+            <div class="input-container">
+
+                <select id="zipInput">
+
+                    <option value="none"></option>
+
+                    <option value="AL" data-price="200">Alabama</option>
+
+                    <option value="TX" data-price="180">Texas</option>
+
+                    <option value="CA" data-price="220">California</option>
+
+                    <!-- Add more states here -->
+
+                </select>
+
+            </div>
+
+            <h2>Select Service</h2>
+
+            <div class="input-container">
+
+                <select id="serviceInput">
+
+                    <option value="none"></option>
+
+                    <option value="AC" data-price="200">AC Repair</option>
+
+                    <option value="battery" data-price="150">Battery Replacement</option>
+
+                    <option value="oil" data-price="40">Oil Change</option>
+
+                    <option value="tire" data-price="30">Tire Rotation</option>
+
+                    <option value="cat" data-price="500">Catalytic Converter Replacement</option>
+
+                </select>
+
+                <button onclick="submitService()">Submit</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Sidebar/menu -->
+
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+
+        <div class="w3-container">
+
+            <h3 class="w3-padding-64"><b>Toyota</b></h3>
+
+        </div>
+
+        <div class="w3-bar-block">
+
+            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
+
+            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- Top menu on small screens -->
+
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+
+        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+
+        <span>Toyota</span>
+
+    </header>
+
+
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+
+
+    <!-- !PAGE CONTENT! -->
+
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+
+
+        <!-- Header -->
+
+        <div class="w3-container" style="margin-top:80px" id="showcase">
+
+            <h1 class="w3-jumbo"><b>Service Estimator</b></h1>
+
+        </div>
+
+
+
+        <!-- Services and Pricing -->
+
+        <div class="w3-container" id="packages" style="margin-top:75px">
+
+            <h1 class="w3-xxxlarge w3-text-red"><b>Service Prices</b></h1>
+
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+
+            <p>Notice: The prices displayed on this webpage are only estimates and not to be used as quotes for your service needs.</p>
+
+        </div>
+
+
+
+        <div class="w3-row-padding">
+
+            <div class="w3-half w3-margin-bottom">
+
+                <ul class="w3-ul w3-light-grey w3-center">
+
+                    <li class="w3-dark-grey w3-xlarge w3-padding-32">Price in Your State</li>
+
+                    <li class="w3-padding-16">
+
+                        <h2 id="price-display"></h2>
+
+                    </li>
+
+    <script>
+
+        function submitService() {
+
+            const stateSelect = document.getElementById("zipInput");
+
+            const serviceSelect = document.getElementById("serviceInput");
+
+
+
+            const selectedStateOption = stateSelect.options[stateSelect.selectedIndex];
+
+            const selectedServiceOption = serviceSelect.options[serviceSelect.selectedIndex];
+
+
+
+            const statePrice = selectedStateOption ? selectedStateOption.getAttribute("data-price") : null;
+
+            const servicePrice = selectedServiceOption ? selectedServiceOption.getAttribute("data-price") : null;
+
+
+
+            if (statePrice && servicePrice) {
+
+                const totalPrice = parseFloat(statePrice) + parseFloat(servicePrice);
+
+                document.getElementById("price-display").innerText = `$${totalPrice.toFixed(2)}`;
+
+            } else {
+
+                document.getElementById("price-display").innerText = "Please select both a state and a service.";
+
+            }
+
+            document.getElementById("zipPopup").style.display = "none";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
